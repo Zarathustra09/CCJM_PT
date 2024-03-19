@@ -19,8 +19,8 @@
                     <li><a href="single.html">single</a></li>
                 </ul>
               </li> --}}
-              <li><a class="ticker-btn" href="#">Signup</a></li>
-              <li><a class="ticker-btn" href="#">Login</a></li>
+              <li><a class="ticker-btn" href="{{route("register")}}">Signup</a></li>
+              <li><a class="ticker-btn" href="{{route("login")}}">Login</a></li>
             </ul>
           </nav><!-- #nav-menu-container -->
         </div>
