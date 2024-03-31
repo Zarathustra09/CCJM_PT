@@ -7,9 +7,9 @@
           <nav id="nav-menu-container">
             <ul class="nav-menu">
               <li class="menu-active"><a href="{{url("/")}}">Home</a></li>
-              <li><a href="about-us.html">About Us</a></li>
+              <li><a href="https://www.facebook.com/cityofcabuyaoforjesusmovementccjm">About Us</a></li>
               <li><a href="{{url("/categories")}}">Category</a></li>
-              <li><a href="price.html">Price</a></li>
+              {{-- <li><a href="price.html">Price</a></li> --}}
               {{-- <li><a href="blog-home.html">Blog</a></li>
               <li><a href="contact.html">Contact</a></li> --}}
               {{-- <li class="menu-has-children"><a href="">Pages</a>
