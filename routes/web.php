@@ -28,6 +28,16 @@ Route::get('/categories', function () {
     return view('categories');
 });
 
+Route::get('/choose', function () {
+    return view('agentclient');
+})->name('choose');
+
+Route::get('/register-agent', function () {
+    return view('auth.register-agent');
+})->name('register-agent');
+
+
+
 
 Auth::routes();
 

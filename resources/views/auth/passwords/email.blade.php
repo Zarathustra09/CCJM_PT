@@ -1,47 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+    <link href="{{ asset('css/authentication.css') }}" rel="stylesheet">
+    <body class="my-login-page">
+    <section class="relative">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="card fat">
+                        <div class="card-body">
+                            <h4 class="card-title">Reset Password</h4>
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            <form method="POST" action="{{ route('password.email') }}" class="my-login-validation" novalidate="">
+                                @csrf
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                <div class="form-group">
+                                    <label for="email">E-Mail Address</label>
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    @error('email')
+                                    <div class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                                    </div>
+                                    @enderror
+                                </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
+                                <div class="form-group m-0">
+                                    <button type="submit" class="btn btn-primary btn-block ticker-btn">
+                                        {{ __('Send Password Reset Link') }}
+                                    </button>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    Remembered your password? <a href="{{ route('login') }}">Login</a>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+                    <div class="footer">
+                        Copyright &copy; 2024 &mdash; CCJM Agency
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+    </body>
 @endsection

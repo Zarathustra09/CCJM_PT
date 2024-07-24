@@ -23,7 +23,7 @@
                             </ul>
                         </li>
                     @else
-                        <li><a class="ticker-btn" href="{{ route("register") }}">Signup</a></li>
+                        <li><a class="ticker-btn" href="{{ route("choose") }}">Signup</a></li>
                         <li><a class="ticker-btn" href="{{ route("login") }}">Login</a></li>
                     @endauth
                     {{-- End of Profile Icon and Dropdown --}}
