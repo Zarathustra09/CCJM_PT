@@ -13,6 +13,9 @@
                             <form method="POST" action="{{ route('register') }}" class="my-login-validation" novalidate="">
                                 @csrf
 
+                                <!-- Hidden field to store role -->
+                                <input type="hidden" name="role" value="{{ request()->query('role', 0) }}">
+
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>

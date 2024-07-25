@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -41,4 +42,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function applicants()
+    {
+        return $this->hasMany(Agent::class);
+    }
+
+    public function postedjobs()
+    {
+        return $this->hasMany(Job::class, 'agent_id');
+    }
 }

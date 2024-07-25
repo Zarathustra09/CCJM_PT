@@ -158,12 +158,39 @@
         .form-stepper a {
             cursor: default;
         }
+        @media (max-width: 480px) {
+            .form-step {
+                padding: 0.5rem;
+            }
+            .form-stepper-horizontal li {
+                flex-direction: column;
+                align-items: center;
+            }
+            .form-stepper-horizontal li:not(:last-child):after {
+                position: absolute;
+                width: 1px;
+                height: 50%;
+                left: 50%;
+                top: 50px;
+            }
+            .form-stepper .label {
+                font-size: 0.7rem;
+            }
+            .form-stepper-circle {
+                width: 25px;
+                height: 25px;
+            }
+            .button, .submit-btn {
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+
     </style>
     <body>
 
     </body>
     <div>
-{{--        <h1>We are pleased to have you here!</h1>--}}
 
         <div id="multi-step-form-container">
             <!-- Form Steps / Progress Bar -->
@@ -174,7 +201,7 @@
                     <span class="form-stepper-circle">
                         <span>1</span>
                     </span>
-                        <div class="label">Agent Personal Details</div>
+                        <div class="label">Personal Details</div>
                     </a>
 
 
@@ -185,7 +212,7 @@
                     <span class="form-stepper-circle text-muted">
                         <span>2</span>
                     </span>
-                        <div class="label text-muted">Agent Requirements</div>
+                        <div class="label text-muted">Agent Skills</div>
                     </a>
                 </li>
                 <!-- Step 3 -->
@@ -194,21 +221,21 @@
                     <span class="form-stepper-circle text-muted">
                         <span>3</span>
                     </span>
-                        <div class="label text-muted">Login Details</div>
+                        <div class="label text-muted">Agent Requirement</div>
                     </a>
                 </li>
             </ul>
             <!-- Step Wise Form Content -->
-            <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
+            <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST" action="{{ route('register-agent.store') }}" class="container-sm">
+                @csrf
                 <!-- Step 1 Content -->
                 <section id="step-1" class="form-step">
                     <h2 class="font-normal">Agent Personal Details</h2>
                     <!-- Step 1 input fields -->
                     <div class="mt-3">
                         <div class="container">
-                            <!-- Personal Information -->
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="full_name">Full Name</label>
                                         <input type="text" name="full_name" id="full_name" placeholder="Full Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Full Name'" required class="form-control single-input">
@@ -216,7 +243,7 @@
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md-12">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="address">Address</label>
                                         <textarea name="address" id="address" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" class="form-control single-input"></textarea>
@@ -224,15 +251,13 @@
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md-6">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="contact_number">Contact Number</label>
                                         <input type="text" name="contact_number" id="contact_number" placeholder="Contact Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Number'" class="form-control single-input">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="gender">Gender</label>
                                         <div class="form-group input-group-icon">
                                             <div class="icon"><i class="fa fa-venus-mars" aria-hidden="true"></i></div>
                                             <div class="form-select" id="default-select">
@@ -248,13 +273,13 @@
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md-6">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="birthdate">Birthdate</label>
                                         <input type="date" name="birthdate" id="birthdate" placeholder="Birthdate" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Birthdate'" class="form-control single-input">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="civil_status">Civil Status</label>
                                         <div class="form-group input-group-icon">
@@ -273,63 +298,50 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="mt-3">
                         <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
                     </div>
                 </section>
                 <!-- Step 2 Content, default hidden on page load. -->
-                <section id="step-2" class="form-step d-none">
-                    <h2 class="font-normal">Agent Requirements</h2>
-                    <!-- Step 2 input fields -->
+                <section id="step-2" class="form-step d-none" style="width: 130%">
+                    <h2 class="font-normal">Agent Technical Skills</h2>
                     <div class="mt-3">
-                        <div class="container">
+                        <div class="container mt-4">
                             <div class="row mt-2">
-                                <div class="col-md-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="resume">Resume</label>
-                                        <input type="file" name="resume" id="resume" class="form-control-file">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="government_id">Government ID</label>
-                                        <input type="file" name="government_id" id="government_id" class="form-control-file">
+                                        <label for="skills">Skills</label>
+                                        <div class="form-group input-group-icon">
+                                            <div class="icon"><i class="fa fa-cogs" aria-hidden="true"></i></div>
+                                            <div class="form-select" id="default-select">
+                                                <select name="skills" id="skills" class="form-control single-input" onchange="addSkill()">
+                                                    <option value="" disabled selected>Select Skills</option>
+                                                    <option value="communication">Communication</option>
+                                                    <option value="teamwork">Teamwork</option>
+                                                    <option value="problem_solving">Problem Solving</option>
+                                                    <option value="leadership">Leadership</option>
+                                                    <option value="technical_skills">Technical Skills</option>
+                                                    <option value="creativity">Creativity</option>
+                                                    <option value="adaptability">Adaptability</option>
+                                                    <option value="time_management">Time Management</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <small class="form-text text-muted">You can select up to 3 skills.</small>
+                                        <input type="hidden" name="selected_skills" id="hidden_selected_skills">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="proof_of_address">Proof of Address</label>
-                                        <input type="file" name="proof_of_address" id="proof_of_address" class="form-control-file">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nbi_clearance">NBI Clearance</label>
-                                        <input type="file" name="nbi_clearance" id="nbi_clearance" class="form-control-file">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="medical_cert">Medical Certificate</label>
-                                        <input type="file" name="medical_cert" id="medical_cert" class="form-control-file">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="drug_test">Drug Test</label>
-                                        <input type="file" name="drug_test" id="drug_test" class="form-control-file">
+                                        <label for="selected_skills">Selected Skills</label>
+                                        <textarea id="selected_skills" class="form-control single-input" readonly></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="mt-3">
                         <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
@@ -338,44 +350,59 @@
                 </section>
                 <!-- Step 3 Content, default hidden on page load. -->
                 <section id="step-3" class="form-step d-none">
-                    <h2 class="font-normal">Login Details</h2>
-                    <!-- Step 3 input fields -->
+                    <h2 class="font-normal">Agent Requirements</h2>
                     <div class="mt-3">
                         <div class="container">
                             <div class="row mt-2">
-                                <div class="col-md-12">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" id="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required class="form-control single-input">
+                                        <label for="resume">Resume</label>
+                                        <input type="file" name="resume" id="resume" class="form-control-file">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="government_id">Government ID</label>
+                                        <input type="file" name="government_id" id="government_id" class="form-control-file">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md-12">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" name="password" id="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required class="form-control single-input">
+                                        <label for="proof_of_address">Proof of Address</label>
+                                        <input type="file" name="proof_of_address" id="proof_of_address" class="form-control-file">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="nbi_clearance">NBI Clearance</label>
+                                        <input type="file" name="nbi_clearance" id="nbi_clearance" class="form-control-file">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md-12">
+                                <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="confirm_password">Confirm Password</label>
-                                        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'" required class="form-control single-input">
+                                        <label for="medical_cert">Medical Certificate</label>
+                                        <input type="file" name="medical_cert" id="medical_cert" class="form-control-file">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="drug_test">Drug Test</label>
+                                        <input type="file" name="drug_test" id="drug_test" class="form-control-file">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                     <div class="mt-3">
                         <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
                         <button class="button submit-btn" type="submit">Save</button>
                     </div>
                 </section>
+
             </form>
         </div>
     </div>
@@ -453,5 +480,29 @@
                 navigateToFormStep(stepNumber);
             });
         });
+
+        var selectedSkills = [];
+
+        function addSkill() {
+            var select = document.getElementById('skills');
+            var selectedSkill = select.options[select.selectedIndex].text;
+
+            if (selectedSkills.length < 3 && !selectedSkills.includes(selectedSkill)) {
+                selectedSkills.push(selectedSkill);
+                document.getElementById('selected_skills').value = selectedSkills.join(', ');
+                document.getElementById('hidden_selected_skills').value = selectedSkills.join(', ');
+
+                if (selectedSkills.length === 3) {
+                    console.log('Selected Skills:', selectedSkills);
+                }
+            } else if (selectedSkills.includes(selectedSkill)) {
+                alert("You have already selected this skill.");
+            } else {
+                alert("You can only select up to 3 skills.");
+            }
+
+            select.selectedIndex = 0;  // Reset the select box
+        }
+
     </script>
 @endsection

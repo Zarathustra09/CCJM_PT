@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterAgentInformation;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,13 +34,12 @@ Route::get('/choose', function () {
     return view('agentclient');
 })->name('choose');
 
-Route::get('/register-agent', function () {
-    return view('auth.register-agent');
-})->name('register-agent');
 
 
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('role.redirect');
+Route::get('/register-agent', [RegisterAgentInformation::class, 'index'])->name('register-agent');
+Route::post('/register-agent/store', [RegisterAgentInformation::class, 'store'])->name('register-agent.store');
