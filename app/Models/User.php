@@ -43,13 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function applicants()
+    public function agent()
     {
-        return $this->hasMany(Agent::class);
+        return $this->hasOne(Agent::class);
     }
 
     public function postedjobs()
     {
-        return $this->hasMany(Job::class, 'agent_id');
+        return $this->hasMany(PostedJobs::class, 'agent_id');
     }
 }

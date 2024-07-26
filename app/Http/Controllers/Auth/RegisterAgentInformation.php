@@ -15,14 +15,14 @@ class RegisterAgentInformation extends Controller
 {
     public function index()
     {
-        return view('auth.register-agent');
+        $categories = Category::class::all();
+        return view('auth.register-agent', compact('categories'));
     }
 
     public function store(Request $request)
     {
 
         try {
-
 
             // Validate the form data
             $request->validate([
@@ -32,7 +32,7 @@ class RegisterAgentInformation extends Controller
                 'gender' => 'required|string|max:10',
                 'birthdate' => 'required|date',
                 'civil_status' => 'required|string|max:10',
-//                'selected_skills' => 'required|array|max:3',
+                'selected_skills' => 'required|string|max:255',
                 'resume' => 'required|file|mimes:pdf,doc,docx',
                 'government_id' => 'required|file|mimes:jpg,jpeg,png,pdf',
                 'proof_of_address' => 'required|file|mimes:jpg,jpeg,png,pdf',
@@ -64,24 +64,8 @@ class RegisterAgentInformation extends Controller
                 'drug_test' => $request->file('drug_test')->store('documents'),
             ]);
 
+            $this->saveSkills(auth()->id(), $request->input('selected_skills'));
 
-//            foreach ($documents as $type => $path) {
-//                AgentDocument::class::create([
-//                    'applicant_id' => auth()->id(),
-//                    $type => $path,
-//                ]);
-//            }
-
-            // Save skills
-//            foreach ($request->input('selected_skills') as $skill) {
-//                $category = Category::class::firstOrCreate(['category_description' => $skill]);
-//                AgentSkill::class::create([
-//                    'agent_id' => auth()->id(),
-//                    'category_id' => $category->id,
-//                ]);
-//            }
-
-            // Commit the transaction
 
             return redirect()->back()->with('success', 'Agent data saved successfully.');
         } catch (\Exception $e) {
@@ -98,4 +82,19 @@ class RegisterAgentInformation extends Controller
 
     }
 
+    private function saveSkills($agentId, $skills)
+    {
+        $selectedSkills = explode(', ', $skills);
+        foreach ($selectedSkills as $skillId) {
+            try {
+                AgentSkill::create([
+                    'agent_id' => $agentId,
+                    'category_id' => $skillId,
+                ]);
+                Log::info('Skill with id ' . $skillId . ' saved successfully for agent ' . $agentId);
+            } catch (\Exception $e) {
+                Log::error('Failed to save skill with id ' . $skillId . ' for agent ' . $agentId . ': ' . $e->getMessage());
+            }
+        }
+    }
 }

@@ -40,6 +40,23 @@ Route::get('/choose', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('role.redirect');
-Route::get('/register-agent', [RegisterAgentInformation::class, 'index'])->name('register-agent');
-Route::post('/register-agent/store', [RegisterAgentInformation::class, 'store'])->name('register-agent.store');
+Route::middleware(['auth'])->group(function () {
+    // Your routes here
+    Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('role.redirect');
+    Route::get('/register-agent', [RegisterAgentInformation::class, 'index'])->name('register-agent');
+    Route::post('/register-agent/store', [RegisterAgentInformation::class, 'store'])->name('register-agent.store');
+
+    Route::get('/client/dashboard', function () {
+        return view('client.dashboard');
+    })->name('client.dashboard');
+
+    Route::get('/agent/dashboard', function () {
+        return view('agent.dashboard');
+    })->name('agent.dashboard');
+
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+
+});

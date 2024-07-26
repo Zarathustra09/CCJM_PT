@@ -21,8 +21,8 @@ class AgentDocument extends Model
         'drug_test',
     ];
 
-    public function applicant()
+    public function agent()
     {
-        return $this->belongsTo(Agent::class);
+        return $this->belongsTo(Agent::class, 'agent_id', 'agent_id');
     }
 }

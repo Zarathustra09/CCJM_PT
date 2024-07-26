@@ -9,7 +9,7 @@ class AgentSkill extends Model
 {
     use HasFactory;
 
-    protected $table = 'applicant_skills';
+    protected $table = 'agent_skills';
 
     protected $fillable = [
         'agent_id',

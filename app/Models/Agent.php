@@ -29,6 +29,6 @@ class Agent extends Model
 
     public function documents()
     {
-        return $this->hasMany(AgentDocument::class);
+        return $this->hasOne(AgentDocument::class, 'agent_id', 'user_id');
     }
 }

@@ -18,13 +18,29 @@ class RedirectBasedOnRole
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->role == 1) {
-                return redirect()->route('register-agent');
-            } elseif (Auth::user()->role == 0) {
-                return redirect()->route('customer-dashboard');
+            $user = Auth::user();
+
+            if ($user->role == 1) {
+                $agent = $user->agent;
+
+                if ($agent) {
+
+                    if (!$agent->documents()->exists()) {
+                        return redirect()->route('register-agent');
+                    } else {
+                        return redirect()->route('agent.dashboard');
+                    }
+                } else {
+                    return redirect()->route('register-agent');
+                }
+            } elseif ($user->role == 0) {
+                return redirect()->route('client.dashboard');
+            } elseif ($user->role == 2) {
+                return redirect()->route('admin.dashboard');
             }
         }
 
         return $next($request);
     }
+
 }

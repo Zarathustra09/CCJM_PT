@@ -37,19 +37,16 @@
     </div>
 </div>
 
-    @include('partials.header')
+@include('partials.header')
 
+<div class="container py-5" >
+    <div class="row fullscreen d-flex align-items-center justify-content-center">
+        @yield('content')
+    </div>
+</div>
 
+@include('partials.footer')
 
-        <div class="container">
-            <div class="row fullscreen d-flex align-items-center justify-content-center">
-
-                    @yield('content')
-
-                </div>
-            </div>
-
-    @include('partials.footer')
     <script src="{{ asset('js/vendor/jquery-2.2.4.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>

@@ -317,20 +317,16 @@
                                             <div class="form-select" id="default-select">
                                                 <select name="skills" id="skills" class="form-control single-input" onchange="addSkill()">
                                                     <option value="" disabled selected>Select Skills</option>
-                                                    <option value="communication">Communication</option>
-                                                    <option value="teamwork">Teamwork</option>
-                                                    <option value="problem_solving">Problem Solving</option>
-                                                    <option value="leadership">Leadership</option>
-                                                    <option value="technical_skills">Technical Skills</option>
-                                                    <option value="creativity">Creativity</option>
-                                                    <option value="adaptability">Adaptability</option>
-                                                    <option value="time_management">Time Management</option>
+                                                    @foreach($categories as $category)
+                                                        <option value="{{ $category->category_id }}">{{ $category->category_description }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <small class="form-text text-muted">You can select up to 3 skills.</small>
                                         <input type="hidden" name="selected_skills" id="hidden_selected_skills">
                                     </div>
+
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -485,17 +481,19 @@
 
         function addSkill() {
             var select = document.getElementById('skills');
-            var selectedSkill = select.options[select.selectedIndex].text;
+            var selectedSkill = select.options[select.selectedIndex];
+            var selectedSkillId = selectedSkill.value;
+            var selectedSkillText = selectedSkill.text;
 
-            if (selectedSkills.length < 3 && !selectedSkills.includes(selectedSkill)) {
-                selectedSkills.push(selectedSkill);
-                document.getElementById('selected_skills').value = selectedSkills.join(', ');
-                document.getElementById('hidden_selected_skills').value = selectedSkills.join(', ');
+            if (selectedSkills.length < 3 && !selectedSkills.find(skill => skill.id === selectedSkillId)) {
+                selectedSkills.push({id: selectedSkillId, text: selectedSkillText});
+                document.getElementById('selected_skills').value = selectedSkills.map(skill => skill.text).join(', ');
+                document.getElementById('hidden_selected_skills').value = selectedSkills.map(skill => skill.id).join(', ');
 
                 if (selectedSkills.length === 3) {
                     console.log('Selected Skills:', selectedSkills);
                 }
-            } else if (selectedSkills.includes(selectedSkill)) {
+            } else if (selectedSkills.find(skill => skill.id === selectedSkillId)) {
                 alert("You have already selected this skill.");
             } else {
                 alert("You can only select up to 3 skills.");
