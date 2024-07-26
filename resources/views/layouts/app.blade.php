@@ -23,31 +23,28 @@
     <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-
+    @stack('styles')
 
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 </head>
 <body>
 
-<div id="preloader" class="loadingio-spinner-spinner-nq4q5u6dq7r">
-    <div class="ldio-x2uulkbinbj">
-        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-        <div></div><div></div><div></div><div></div>
-    </div>
-</div>
 
-@include('partials.header')
 
-<div class="container py-5" >
-    <div class="row fullscreen d-flex align-items-center justify-content-center">
-        @yield('content')
-    </div>
-</div>
 
-@include('partials.footer')
+        @include('partials.header')
+
+        <div class="container py-5" >
+            <div class="row fullscreen d-flex align-items-center justify-content-center">
+                @yield('content')
+            </div>
+        </div>
+
+        @include('partials.footer')
 
     <script src="{{ asset('js/vendor/jquery-2.2.4.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
@@ -62,5 +59,44 @@
     <script src="{{ asset('js/parallax.min.js') }}"></script>
     <script src="{{ asset('js/mail-script.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+
+        <script src="{{ mix('js/app.js') }}"></script>
+    @stack('scripts')
+
+        @if(session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: '{{ session('success') }}',
+                    timer: 3000,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'swal2-custom-popup',
+                        title: 'swal2-custom-title',
+                        content: 'swal2-custom-content',
+                        icon: 'swal2-custom-icon'
+                    }
+                });
+            </script>
+        @endif
+
+        @if(session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{{ session('error') }}',
+                    customClass: {
+                        popup: 'swal2-custom-popup',
+                        title: 'swal2-custom-title',
+                        content: 'swal2-custom-content',
+                        icon: 'swal2-custom-icon'
+                    }
+                });
+            </script>
+        @endif
+
+
 </body>
 </html>

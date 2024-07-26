@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <link href="{{ asset('css/client-agent.css') }}" rel="stylesheet">
-
+    @push('styles')
+        <link href="{{ asset('css/client-agent.css') }}" rel="stylesheet">
+    @endpush
     <div class="section over-hide">
         <div class="container">
             <div class="row full-height justify-content-center">

@@ -64,14 +64,15 @@ class RegisterAgentInformation extends Controller
                 'drug_test' => $request->file('drug_test')->store('documents'),
             ]);
 
+
+
             $this->saveSkills(auth()->id(), $request->input('selected_skills'));
 
-
-            return redirect()->back()->with('success', 'Agent data saved successfully.');
+            return redirect()->route('agent.dashboard')->with('success', 'Agent information saved successfully');
         } catch (\Exception $e) {
             // Rollback the transaction
-            DB::rollBack();
 
+            DB::rollBack();
             // Log the error message
             Log::error('Failed to save agent data: ' . $e->getMessage());
 
@@ -95,6 +96,43 @@ class RegisterAgentInformation extends Controller
             } catch (\Exception $e) {
                 Log::error('Failed to save skill with id ' . $skillId . ' for agent ' . $agentId . ': ' . $e->getMessage());
             }
+        }
+    }
+
+
+    private function saveInformation(Request $request)
+    {
+        try {
+            return Agent::class::create([
+                'user_id' => auth()->id(),
+                'full_name' => $request->input('full_name'),
+                'address' => $request->input('address'),
+                'contact_number' => $request->input('contact_number'),
+                'gender' => $request->input('gender'),
+                'birthdate' => $request->input('birthdate'),
+                'civil_status' => $request->input('civil_status'),
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to save agent information: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    private function saveDocuments(Request $request)
+    {
+        try {
+            return AgentDocument::create([
+                'agent_id'=> auth()->id(),
+                'resume' => $request->file('resume')->store('documents'),
+                'government_id' => $request->file('government_id')->store('documents'),
+                'proof_of_address' => $request->file('proof_of_address')->store('documents'),
+                'nbi_clearance' => $request->file('nbi_clearance')->store('documents'),
+                'medical_cert' => $request->file('medical_cert')->store('documents'),
+                'drug_test' => $request->file('drug_test')->store('documents'),
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to save agent documents: ' . $e->getMessage());
+            throw $e;
         }
     }
 }
