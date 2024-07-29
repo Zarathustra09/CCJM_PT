@@ -220,6 +220,17 @@
     </div>
 
     @push('scripts')
+
+
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: 'You\'re Close!',
+                text: 'Please complete the form to proceed.',
+                timer: 3000,
+            });
+        </script>
+
         <script src="{{ asset('js/register-agent.js') }}"></script>
     @endpush
 @endsection

@@ -14,7 +14,12 @@
     <!--
     CSS
     ============================================= -->
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('css/sidebar.css')}}">
     <link rel="stylesheet" href="{{ asset('css/linearicons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
@@ -23,6 +28,13 @@
     <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+
+    <!-- Data Table -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
     @stack('styles')
 
     <!-- Scripts -->
@@ -35,16 +47,24 @@
 
         @include('partials.header')
 
-        <div class="container py-5" >
-            <div class="row fullscreen d-flex align-items-center justify-content-center">
-                @yield('content')
+
+
+
+
+        <!-- Main Content -->
+            <div class="container py-5 flex-grow-1">
+                <div class="row fullscreen align-items-center justify-content-center">
+                    @yield('content')
+                </div>
             </div>
-        </div>
+        @auth
+            @include('partials.sidebar-new')
+        @endauth
 
         @include('partials.footer')
 
-    <script src="{{ asset('js/vendor/jquery-2.2.4.min.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/vendor/jquery-2.2.4.min.js') }}"></script>'
+        <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
@@ -59,8 +79,8 @@
     <script src="{{ asset('js/parallax.min.js') }}"></script>
     <script src="{{ asset('js/mail-script.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-        <script src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')
 
         @if(session('success'))
