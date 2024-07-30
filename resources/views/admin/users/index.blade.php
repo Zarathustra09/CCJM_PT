@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <table id="dataTable" class="display" style="width:100%">
+    <table id="dataTable" class="display" style="width:100%; table-layout: fixed;">
         <thead>
         <tr>
             <th>ID</th>
@@ -17,17 +17,24 @@
 
     <!-- SweetAlert2 Modals -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('js/users.js') }}"></script>
 
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
+                "bDestroy": true,
                 ajax: '{{ route("users.datatable") }}',
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
                     { data: 'email', name: 'email' },
-                    { data: 'role', name: 'role' },
+                    {
+                        data: 'role',
+                        name: 'role',
+                        render: function(data, type, row) {
+                            const roles = { 0: 'Client', 1: 'Agent', 2: 'Admin' };
+                            return roles[data] || 'Unknown';
+                        }
+                    },
                     {
                         data: null,
                         name: 'action',
@@ -196,8 +203,6 @@
             });
         }
 
-
-
         function deleteUser(userId) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -240,6 +245,10 @@
     <style>
         .custom-swal-container {
             font-size: 16px;
+        }
+        #dataTable {
+            width: 100%;
+            table-layout: fixed;
         }
     </style>
 @endsection

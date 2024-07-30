@@ -12,55 +12,44 @@ class AdminController extends Controller
      */
     public function index()
     {
+        return view('admin.agent.index');
+    }
+
+    public function datatable()
+    {
         $agents = Agent::all();
-        return view('admin.dashboard', compact('agents'));
+        return response()->json(['data' => $agents]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $agent = Agent::with('documents')->find($id);
+        return response()->json(['data' => $agent]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $Agent = Agent::find($id);
+        return response()->json(['data' => $Agent]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $Agent = Agent::find($id);
+        $Agent->update($request->all());
+
+        // Return a JSON response with a success status code (200)
+        return response()->json(['message' => 'Agent has been updated.'], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $Agent = Agent::find($id);
+        $Agent->delete();
+
+        // Return a JSON response with a success status code (200)
+        return response()->json(['message' => 'Agent has been deleted.'], 200);
     }
+
+
 }

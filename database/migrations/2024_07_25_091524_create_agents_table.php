@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('gender', 10)->nullable();
             $table->date('birthdate')->nullable();
             $table->string('civil_status', 20)->nullable();
-            $table->string('application_status', 50)->nullable();
+            $table->integer('application_status')->default(0);
             $table->timestamps();
         });
     }

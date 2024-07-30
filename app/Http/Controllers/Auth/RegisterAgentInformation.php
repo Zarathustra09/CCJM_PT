@@ -55,13 +55,14 @@ class RegisterAgentInformation extends Controller
 
 
             $agentdocument = AgentDocument::create([
-                'agent_id'=> auth()->id(),
-                'resume' => $request->file('resume')->store('documents'),
-                'government_id' => $request->file('government_id')->store('documents'),
-                'proof_of_address' => $request->file('proof_of_address')->store('documents'),
-                'nbi_clearance' => $request->file('nbi_clearance')->store('documents'),
-                'medical_cert' => $request->file('medical_cert')->store('documents'),
-                'drug_test' => $request->file('drug_test')->store('documents'),
+                'agent_id' => auth()->id(),
+                'resume' => $request->file('resume')->store('documents', 'public'),
+                'government_id' => $request->file('government_id')->store('documents', 'public'),
+                'proof_of_address' => $request->file('proof_of_address')->store('documents', 'public'),
+                'nbi_clearance' => $request->file('nbi_clearance')->store('documents', 'public'),
+                'medical_cert' => $request->file('medical_cert')->store('documents', 'public'),
+                'drug_test' => $request->file('drug_test')->store('documents', 'public'),
+
             ]);
 
 

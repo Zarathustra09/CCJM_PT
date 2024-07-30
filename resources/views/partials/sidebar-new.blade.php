@@ -24,7 +24,7 @@
             <div class="menu-separator"></div>
         </h4>
         <li>
-            <a href="#"><span class="material-symbols-outlined"> folder </span>Projects</a>
+            <a href="{{route('agent.index')}}"><span class="material-symbols-outlined"> support_agent </span>Agents</a>
         </li>
         <li>
             <a href="{{route('users.index')}}"><span class="material-symbols-outlined"> groups </span>Users</a>
