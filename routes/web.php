@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\RegisterAgentInformation;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -59,8 +60,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
 
 
-
-
     //Agent Routes
     Route::get('/agents', [AdminController::class, 'index'])->name('agent.index');
     Route::get('/agents/datatable', [AdminController::class, 'datatable'])->name('agent.datatable');
@@ -69,6 +68,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/agents/{id}', [AdminController::class, 'update'])->name('admin.agent.update');
     Route::delete('/admin/agents/{id}', [AdminController::class, 'destroy'])->name('admin.agent.destroy');
 
+    //Job Routes
+    Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/datatable', [JobController::class, 'datatable'])->name('jobs.datatable');
+    Route::get('/admin/jobs/{id}', [JobController::class, 'show'])->name('admin.jobs.show');
+    Route::get('/admin/jobs/{id}/edit', [JobController::class, 'edit'])->name('admin.jobs.edit');
+    Route::put('/admin/jobs/{id}', [JobController::class, 'update'])->name('admin.jobs.update');
+    Route::delete('/admin/jobs/{id}', [JobController::class, 'destroy'])->name('admin.jobs.destroy');
 
 
 

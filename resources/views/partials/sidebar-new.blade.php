@@ -30,7 +30,7 @@
             <a href="{{route('users.index')}}"><span class="material-symbols-outlined"> groups </span>Users</a>
         </li>
         <li>
-            <a href="#"><span class="material-symbols-outlined"> move_up </span>Transfer</a>
+            <a href="#"><span class="material-symbols-outlined"> public </span>Posts</a>
         </li>
         <li>
             <a href="#"><span class="material-symbols-outlined"> flag </span>All Reports</a>
