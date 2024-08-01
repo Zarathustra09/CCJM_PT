@@ -80,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
     //Post Client Routes
     Route::get('/client/posts', [ClientPostController::class, 'index'])->name('client.posts.index');
     Route::get('/client/create', [ClientPostController::class, 'create'])->name('client.posts.create');
+    Route::post('/client/posts', [ClientPostController::class, 'store'])->name('client.posts.store');
 
     Route::get('/client/dashboard', function () {
         return view('client.dashboard');

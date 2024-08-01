@@ -9,7 +9,7 @@
                     <li class="menu-active"><a href="{{ url("/") }}"><i class="fa fa-home"></i> Home</a></li>
                     <li><a href="https://www.facebook.com/cityofcabuyaoforjesusmovementccjm"><i class="fa fa-info-circle"></i> About Us</a></li>
                     <li><a href="{{ url("/categories") }}"><i class="fa fa-list"></i> Category</a></li>
-                    <li><a href=""><i class="fa fa-briefcase"></i> Post a Job</a></li>
+                    <li><a href="{{route("client.posts.create")}}"><i class="fa fa-briefcase"></i> Post a Job</a></li>
                     {{-- Profile Icon and Dropdown --}}
                     @auth
                         <li class="relative">

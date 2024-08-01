@@ -5,6 +5,8 @@
         <div class="row fullscreen align-items-center justify-content-center">
             <div class="container">
                 <h3 class="mb-30">Post a Job</h3>
+                <form action="{{ route('client.posts.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                 <div class="row">
                     <div class="col-md-6 mt-10">
                         <input type="text" name="job_title" placeholder="Job Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Job Title'" required class="single-input form-control">
@@ -39,8 +41,9 @@
                         </select>
                     </div>
 
+
                     <div class="col-md-6 input-group-icon mt-10">
-                        <div class="icon"><i class="fa fa-briefcase" aria-hidden="true"></i></div>
+                        <div class="icon"></div>
                         <div class="form-select" id="default-select">
                             <select name="category_id" required class="form-control">
                                 <option value="">Select Category</option>
@@ -50,11 +53,14 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-12 mt-10">
+                        <button type="submit" class="btn btn-primary">Post Job</button>
+                    </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
-
     @push('scripts')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
