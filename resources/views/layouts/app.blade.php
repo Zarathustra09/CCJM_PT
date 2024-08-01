@@ -37,28 +37,38 @@
 
     @stack('styles')
 
-    <!-- Scripts -->
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 </head>
 <body>
 
 
 
 
-        @include('partials.header')
 
-
-
-
-
-        <!-- Main Content -->
-            <div class="container py-5 flex-grow-1">
-                <div class="row fullscreen align-items-center justify-content-center">
-                    @yield('content')
-                </div>
-            </div>
         @auth
-            @include('partials.sidebar-new')
+            @if(Auth::user()->role == 0)
+                @include('partials.client-header')
+            @elseif(Auth::user()->role == 1)
+                @include('partials.header')
+            @elseif(Auth::user()->role == 2)
+                @include('partials.header')
+            @endif
+        @endauth
+
+
+
+
+
+
+                    @yield('content')
+
+        @auth
+            @if(Auth::user()->role == 0)
+
+            @elseif(Auth::user()->role == 1)
+                @include('partials.sidebar-new')
+            @elseif(Auth::user()->role == 2)
+                @include('partials.sidebar-new')
+            @endif
         @endauth
 
         @include('partials.footer')

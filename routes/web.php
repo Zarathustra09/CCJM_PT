@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\RegisterAgentInformation;
+use App\Http\Controllers\ClientPostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\UsersController;
@@ -76,8 +77,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/jobs/{id}', [JobController::class, 'update'])->name('admin.jobs.update');
     Route::delete('/admin/jobs/{id}', [JobController::class, 'destroy'])->name('admin.jobs.destroy');
 
-
-
+    //Post Client Routes
+    Route::get('/client/posts', [ClientPostController::class, 'index'])->name('client.posts.index');
+    Route::get('/client/create', [ClientPostController::class, 'create'])->name('client.posts.create');
 
     Route::get('/client/dashboard', function () {
         return view('client.dashboard');

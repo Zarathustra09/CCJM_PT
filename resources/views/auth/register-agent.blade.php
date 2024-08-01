@@ -7,7 +7,8 @@
 
 
     <div>
-
+        <div class="container py-5 flex-grow-1">
+            <div class="row fullscreen justify-content-center">
         <div id="multi-step-form-container">
             <!-- Form Steps / Progress Bar -->
             <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
@@ -218,7 +219,8 @@
             </form>
         </div>
     </div>
-
+    </div>
+    </div>
     @push('scripts')
 
 

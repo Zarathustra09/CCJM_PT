@@ -18,8 +18,10 @@ return new class extends Migration
             $table->decimal('salary', 10, 2)->nullable();
             $table->string('image')->nullable();
             $table->string('location')->nullable();
-            $table->string('status', 50)->nullable();
-            $table->foreignId('agent_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id')->constrained('categories','category_id')->onDelete('cascade');;
+            $table->integer('status')->default(0);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('agent_id')->constrained('users',)->onDelete('cascade');
             $table->timestamps();
         });
     }

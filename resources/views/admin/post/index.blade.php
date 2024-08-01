@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container py-5 flex-grow-1">
+        <div class="row fullscreen align-items-center justify-content-center">
     <table id="dataTable" class="display" style="width:100%; table-layout: fixed;">
         <thead>
         <tr>
@@ -17,10 +19,8 @@
         <tbody>
         </tbody>
     </table>
-
-    <!-- SweetAlert2 Modals -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+            </div>
+    </div>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({

@@ -17,12 +17,25 @@ class PostedJobs extends Model
         'salary',
         'image',
         'location',
+        'category_id',
         'status',
+        'user_id',
         'agent_id',
     ];
 
     public function agent()
     {
-        return $this->belongsTo(User::class, 'agent_id');
+        return $this->belongsTo(Agent::class, 'agent_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'id', 'user_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
+
 }

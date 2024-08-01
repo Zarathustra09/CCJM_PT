@@ -4,6 +4,9 @@
     @push('styles')
         <link href="{{ asset('css/client-agent.css') }}" rel="stylesheet">
     @endpush
+
+    <div class="container py-5 flex-grow-1">
+        <div class="row fullscreen align-items-center justify-content-center">
     <div class="section over-hide">
         <div class="container">
             <div class="row full-height justify-content-center">
@@ -42,6 +45,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
         </div>
     </div>
 @endsection
