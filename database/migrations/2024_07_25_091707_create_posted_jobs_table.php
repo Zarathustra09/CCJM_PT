@@ -18,6 +18,14 @@ return new class extends Migration
             $table->decimal('salary', 10, 2)->nullable();
             $table->string('image')->nullable();
             $table->string('location')->nullable();
+            $table->string('region')->nullable();
+            $table->string('province')->nullable();
+            $table->string('city')->nullable();
+            $table->string('barangay')->nullable();
+//            $table->string('looking_for')->nullable();
+//            $table->string('exp_requirement')->nullable();
+//            $table->string('job_feature')->nullable();
+//            $table->string('educ_requirement')->nullable();
             $table->unsignedBigInteger('category_id')->constrained('categories','category_id')->onDelete('cascade');;
             $table->integer('status')->default(0);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

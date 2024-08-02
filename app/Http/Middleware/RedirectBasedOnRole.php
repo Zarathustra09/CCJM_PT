@@ -34,7 +34,7 @@ class RedirectBasedOnRole
                     return redirect()->route('register-agent');
                 }
             } elseif ($user->role == 0) {
-                return redirect()->route('client.dashboard');
+                return redirect()->route('client.posts.index');
             } elseif ($user->role == 2) {
                 return redirect()->route('admin.dashboard');
             }

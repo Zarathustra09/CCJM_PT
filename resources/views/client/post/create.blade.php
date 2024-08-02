@@ -11,7 +11,7 @@
                     <div class="col-md-6 mt-10">
                         <input type="text" name="job_title" placeholder="Job Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Job Title'" required class="single-input form-control">
                     </div>
-                    <div class="col-md-12 mt-10">
+                    <div class="col-md-6 mt-10">
                         <textarea name="job_description" placeholder="Job Description" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Job Description'" required class="single-textarea form-control"></textarea>
                     </div>
                     <div class="col-md-6 mt-10">

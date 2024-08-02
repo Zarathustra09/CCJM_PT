@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Yajra\Address\Entities\Barangay;
+use Yajra\Address\HasAddress;
 
 class PostedJobs extends Model
 {
-    use HasFactory;
+    use HasFactory, HasAddress;
 
     protected $primaryKey = 'job_id';
 
@@ -16,7 +18,10 @@ class PostedJobs extends Model
         'job_description',
         'salary',
         'image',
-        'location',
+        'region',
+        'province',
+        'city',
+        'barangay',
         'category_id',
         'status',
         'user_id',
@@ -30,12 +35,17 @@ class PostedJobs extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
+
+    public function barangay()
+    {
+        return $this->belongsTo(Barangay::class, 'barangay', 'id');
     }
 
 }

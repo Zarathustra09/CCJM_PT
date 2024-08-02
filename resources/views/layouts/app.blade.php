@@ -52,6 +52,8 @@
             @elseif(Auth::user()->role == 2)
                 @include('partials.header')
             @endif
+        @else
+            @include('partials.header')
         @endauth
 
 
