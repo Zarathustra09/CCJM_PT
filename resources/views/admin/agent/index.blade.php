@@ -31,7 +31,7 @@
                 "bDestroy": true,
                 ajax: '{{ route("agent.datatable") }}', // Adjusted route
                 columns: [
-                    { data: 'user_id', name: 'user_id' },
+                    { data: 'agent_id', name: 'agent_id' },
                     { data: 'full_name', name: 'full_name' },
                     { data: 'address', name: 'address' },
                     { data: 'contact_number', name: 'contact_number' },
@@ -53,13 +53,13 @@
                         searchable: false,
                         render: function(data, type, row) {
                             return '<div class="d-flex justify-content-around">' +
-                                '<a href="#" class="btn btn-info btn-sm mx-1" title="View" onclick="viewAgent(' + data.user_id + ')">' +
+                                '<a href="#" class="btn btn-info btn-sm mx-1" title="View" onclick="viewAgent(' + data.agent_id + ')">' +
                                 '<i class="fas fa-eye"></i>' +
                                 '</a>' +
-                                '<a href="#" class="btn btn-warning btn-sm mx-1" title="Edit" onclick="editAgent(' + data.user_id + ')">' +
+                                '<a href="#" class="btn btn-warning btn-sm mx-1" title="Edit" onclick="editAgent(' + data.agent_id + ')">' +
                                 '<i class="fas fa-edit"></i>' +
                                 '</a>' +
-                                '<a href="#" class="btn btn-danger btn-sm mx-1" title="Delete" onclick="deleteAgent(' + data.user_id + ')">' +
+                                '<a href="#" class="btn btn-danger btn-sm mx-1" title="Delete" onclick="deleteAgent(' + data.agent_id + ')">' +
                                 '<i class="fas fa-trash"></i>' +
                                 '</a>' +
                                 '</div>';
@@ -70,6 +70,7 @@
         });
 
         function viewAgent(agentId) {
+            console.log(agentId)
             $.ajax({
                 url: '/admin/agents/' + agentId,
                 method: 'GET',

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\PostedJobs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JobController extends Controller
 {
@@ -18,33 +20,57 @@ class JobController extends Controller
 
     public function datatable()
     {
-        try {
-            $jobs = PostedJobs::all();
-            return response()->json(['data' => $jobs]);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred while retrieving the jobs.'], 500);
+        $jobs = PostedJobs::with(['agent', 'user', 'category'])->get();
+
+        foreach ($jobs as $job) {
+            $job->region_name = DB::table('regions')->where('region_id', $job->region)->value('name');
+            $job->province_name = DB::table('provinces')->where('province_id', $job->province)->value('name');
+            $job->city_name = DB::table('cities')->where('city_id', $job->city)->value('name');
+            $job->barangay_name = DB::table('barangays')->where('id', $job->barangay)->value('name');
+
+            // Concatenate location
+            $job->full_location = "{$job->barangay_name}, {$job->city_name}, {$job->province_name}, {$job->region_name}";
         }
+
+        return response()->json([
+            'data' => $jobs,
+        ]);
     }
+
+
 
     public function show(string $id)
     {
         try {
-            $jobs = PostedJobs::find($id);
-            return response()->json(['data' => $jobs]);
+            $job = PostedJobs::with(['agent', 'user', 'category'])->findOrFail($id);
+
+            // Fetch related location names
+            $job->region_name = DB::table('regions')->where('region_id', $job->region)->value('name');
+            $job->province_name = DB::table('provinces')->where('province_id', $job->province)->value('name');
+            $job->city_name = DB::table('cities')->where('city_id', $job->city)->value('name');
+            $job->barangay_name = DB::table('barangays')->where('id', $job->barangay)->value('name');
+
+            // Concatenate location
+            $job->full_location = "{$job->barangay_name}, {$job->city_name}, {$job->province_name}, {$job->region_name}";
+
+            return response()->json(['data' => $job]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred while retrieving the job.'], 500);
         }
     }
 
+
     public function edit(string $id)
     {
         try {
             $jobs = PostedJobs::find($id);
-            return response()->json(['data' => $jobs]);
+            $agents = Agent::all(['agent_id', 'full_name']); // Fetch all agents with necessary fields
+            return response()->json(['data' => $jobs, 'agents' => $agents]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred while editing the job.'], 500);
         }
     }
+
 
     public function update(Request $request, string $id)
     {

@@ -67,7 +67,7 @@
             @if(Auth::user()->role == 0)
 
             @elseif(Auth::user()->role == 1)
-                @include('partials.sidebar-new')
+{{--                @include('partials.sidebar-new')--}}
             @elseif(Auth::user()->role == 2)
                 @include('partials.sidebar-new')
             @endif

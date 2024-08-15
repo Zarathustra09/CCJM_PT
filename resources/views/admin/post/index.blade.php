@@ -21,6 +21,7 @@
     </table>
             </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
@@ -31,9 +32,28 @@
                     { data: 'job_title', name: 'job_title' },
                     { data: 'job_description', name: 'job_description' },
                     { data: 'salary', name: 'salary' },
-                    { data: 'location', name: 'location' },
-                    { data: 'status', name: 'status' },
-                    { data: 'agent_id', name: 'agent_id', render: function(data) { return data || 'N/A'; } },
+                    {
+                        data: 'full_location',
+                        name: 'full_location',
+                        render: function(data) {
+                            // Log the full location to the console
+                            console.log('Full Location:', data);
+
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        render: function(data) {
+                            return data == 0 ? 'Unapproved' : 'Approved';
+                        }
+                    },
+                    {
+                        data: 'agent_id',
+                        name: 'agent_id',
+                        render: function(data) { return data || 'N/A'; }
+                    },
                     {
                         data: null,
                         name: 'action',
@@ -57,6 +77,8 @@
             });
         });
 
+
+
         function viewJob(jobId) {
             $.ajax({
                 url: '/admin/jobs/' + jobId,
@@ -68,67 +90,67 @@
                         title: 'Job Details',
                         icon: "info",
                         html: `
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Job Title</label>
-                                        <input type="text" class="form-control single-input" value="${job.job_title}" readonly>
-                                    </div>
-                                </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input type="text" class="form-control single-input" value="${job.job_title}" readonly>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <textarea class="form-control single-input" readonly>${job.job_description}</textarea>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control single-input" readonly>${job.job_description}</textarea>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="form-group">
-                                        <label>Salary</label>
-                                        <input type="text" class="form-control single-input" value="${job.salary}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="form-group">
-                                        <label>Location</label>
-                                        <input type="text" class="form-control single-input" value="${job.location}" readonly>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label>Salary</label>
+                                <input type="text" class="form-control single-input" value="${job.salary}" readonly>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Status</label>
-                                        <input type="text" class="form-control single-input" value="${job.status}" readonly>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" class="form-control single-input" value="${job.full_location}" readonly>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Assigned Agent</label>
-                                        <input type="text" class="form-control single-input" value="${job.agent_id}" readonly>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <input type="text" class="form-control single-input" value="${job.status == 0 ? 'Unapproved' : 'Approved'}" readonly>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="form-group">
-                                        <label>Created At</label>
-                                        <input type="text" class="form-control single-input" value="${job.created_at}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="form-group">
-                                        <label>Updated At</label>
-                                        <input type="text" class="form-control single-input" value="${job.updated_at}" readonly>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Assigned Agent</label>
+                                <input type="text" class="form-control single-input" value="${job.agent_id || 'N/A'}" readonly>
                             </div>
-                        `,
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Created At</label>
+                            <input type="text" class="form-control single-input" value="${moment(job.created_at).format('MMMM Do YYYY, h:mm:ss a')}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Updated At</label>
+                            <input type="text" class="form-control single-input" value="${moment(job.updated_at).format('MMMM Do YYYY, h:mm:ss a')}" readonly>
+                        </div>
+                    </div>
+                </div>
+                `,
                         showCloseButton: true,
                         showConfirmButton: false,
                         width: '600px',
@@ -140,12 +162,19 @@
             });
         }
 
+
         function editJob(jobId) {
             $.ajax({
                 url: '/admin/jobs/' + jobId + '/edit',
                 method: 'GET',
                 success: function(response) {
                     const job = response.data;
+                    const agents = response.agents;
+
+                    let agentOptions = '';
+                    agents.forEach(agent => {
+                        agentOptions += `<option value="${agent.agent_id}" ${job.agent_id == agent.agent_id ? 'selected' : ''}>${agent.full_name}</option>`;
+                    });
 
                     Swal.fire({
                         title: 'Edit Job',
@@ -186,7 +215,20 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <input type="text" id="editStatus" class="form-control single-input" value="${job.status}" required>
+                                    <select id="editStatus" class="form-control single-input" required>
+                                        <option value="0" ${job.status == 0 ? 'selected' : ''}>Unapproved</option>
+                                        <option value="1" ${job.status == 1 ? 'selected' : ''}>Approved</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Agent</label>
+                                    <select id="editAgent" class="form-control single-input" required>
+                                        ${agentOptions}
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -202,6 +244,7 @@
                                 const salary = Swal.getPopup().querySelector('#editSalary').value;
                                 const location = Swal.getPopup().querySelector('#editLocation').value;
                                 const status = Swal.getPopup().querySelector('#editStatus').value;
+                                const agent_id = Swal.getPopup().querySelector('#editAgent').value;
 
                                 if (!job_title || !job_description) {
                                     Swal.showValidationMessage('Please enter both job title and description');
@@ -219,7 +262,8 @@
                                         job_description,
                                         salary,
                                         location,
-                                        status
+                                        status,
+                                        agent_id
                                     },
                                     success: function() {
                                         Swal.fire('Updated!', 'Job has been updated.', 'success');
@@ -235,6 +279,7 @@
                 }
             });
         }
+
 
         function deleteJob(jobId) {
             Swal.fire({

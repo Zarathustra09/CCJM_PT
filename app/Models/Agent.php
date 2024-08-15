@@ -29,6 +29,7 @@ class Agent extends Model
 
     public function documents()
     {
-        return $this->hasOne(AgentDocument::class, 'agent_id', 'user_id');
+        return $this->hasOne(AgentDocument::class, 'agent_id', 'agent_id');
     }
+
 }

@@ -21,11 +21,11 @@ class RegisterAgentInformation extends Controller
 
     public function store(Request $request)
     {
+        DB::beginTransaction(); // Start a database transaction
 
         try {
-
             // Validate the form data
-            $request->validate([
+            $validatedData = $request->validate([
                 'full_name' => 'required|string|max:255',
                 'address' => 'required|string|max:255',
                 'contact_number' => 'required|string|max:15',
@@ -41,48 +41,46 @@ class RegisterAgentInformation extends Controller
                 'drug_test' => 'required|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
-
-            // Create the applicant
-            $applicant = Agent::class::create([
+            // Create the Agent record
+            $agent = Agent::create([
                 'user_id' => auth()->id(),
-                'full_name' => $request->input('full_name'),
-                'address' => $request->input('address'),
-                'contact_number' => $request->input('contact_number'),
-                'gender' => $request->input('gender'),
-                'birthdate' => $request->input('birthdate'),
-                'civil_status' => $request->input('civil_status'),
+                'full_name' => $validatedData['full_name'],
+                'address' => $validatedData['address'],
+                'contact_number' => $validatedData['contact_number'],
+                'gender' => $validatedData['gender'],
+                'birthdate' => $validatedData['birthdate'],
+                'civil_status' => $validatedData['civil_status'],
             ]);
 
-
-            $agentdocument = AgentDocument::create([
-                'agent_id' => auth()->id(),
+            // Create the AgentDocument record using the newly created agent's ID
+            AgentDocument::create([
+                'agent_id' => $agent->agent_id,
                 'resume' => $request->file('resume')->store('documents', 'public'),
                 'government_id' => $request->file('government_id')->store('documents', 'public'),
                 'proof_of_address' => $request->file('proof_of_address')->store('documents', 'public'),
                 'nbi_clearance' => $request->file('nbi_clearance')->store('documents', 'public'),
                 'medical_cert' => $request->file('medical_cert')->store('documents', 'public'),
                 'drug_test' => $request->file('drug_test')->store('documents', 'public'),
-
             ]);
 
+            // Save the selected skills
+            $this->saveSkills($agent->agent_id, $validatedData['selected_skills']);
 
-
-            $this->saveSkills(auth()->id(), $request->input('selected_skills'));
+            DB::commit(); // Commit the transaction
 
             return redirect()->route('agent.dashboard')->with('success', 'Agent information saved successfully');
         } catch (\Exception $e) {
-            // Rollback the transaction
+            DB::rollBack(); // Rollback the transaction
 
-            DB::rollBack();
             // Log the error message
             Log::error('Failed to save agent data: ' . $e->getMessage());
 
             // Return back with an error message
             return redirect()->back()->with('error', 'Failed to save agent data: ' . $e->getMessage());
         }
-
-
     }
+
+
 
     private function saveSkills($agentId, $skills)
     {
