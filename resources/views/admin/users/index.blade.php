@@ -102,13 +102,13 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label>Created At</label>
-                                    <input type="text" class="form-control single-input" value="${user.created_at}" readonly>
+                                    <input type="text" class="form-control single-input" value="${moment(user.created_at).format('MMMM Do YYYY, h:mm:ss a')}" readonly>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label>Updated At</label>
-                                    <input type="text" class="form-control single-input" value="${user.updated_at}" readonly>
+                                    <input type="text" class="form-control single-input" value="${moment(user.updated_at).format('MMMM Do YYYY, h:mm:ss a')}" readonly>
                                 </div>
                             </div>
                         </div>

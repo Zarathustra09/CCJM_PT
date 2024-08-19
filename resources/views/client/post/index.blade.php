@@ -52,14 +52,16 @@
                     <div class="single-slidebar">
                         <h4>Sort by Location</h4>
                         <ul class="cat-list">
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Metro Manila</p><span>37</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Cebu</p><span>57</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Davao City</p><span>33</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Quezon City</p><span>36</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Manila</p><span>47</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Taguig</p><span>27</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Makati</p><span>17</span></a></li>
+                            @foreach($topCities as $cityName => $cityData)
+                                <li>
+                                    <a class="justify-content-between d-flex">
+                                        <p>{{ $cityName }}</p>
+                                        <span>{{ $cityData['count'] }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
+
                     </div>
 
 
@@ -67,13 +69,14 @@
                     <div class="single-slidebar">
                         <h4>Sort by Category</h4>
                         <ul class="cat-list">
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Technology</p><span>37</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Media & News</p><span>57</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Goverment</p><span>33</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Medical</p><span>36</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Restaurants</p><span>47</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Developer</p><span>27</span></a></li>
-                            <li><a class="justify-content-between d-flex" href="category.html"><p>Accounting</p><span>17</span></a></li>
+                            @foreach($topCategories as $categoryName => $count)
+                                <li>
+                                    <a class="justify-content-between d-flex">
+                                        <p>{{ $categoryName }}</p>
+                                        <span>{{ $count }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
 

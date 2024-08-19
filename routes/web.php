@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterAgentInformation;
 use App\Http\Controllers\ClientPostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +22,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LandingPageController::class, 'index']);
 
 Route::get('/logout', function () {
     Auth::logout();
@@ -81,6 +80,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/client/posts', [ClientPostController::class, 'index'])->name('client.posts.index');
     Route::get('/client/create', [ClientPostController::class, 'create'])->name('client.posts.create');
     Route::post('/client/posts', [ClientPostController::class, 'store'])->name('client.posts.store');
+
+
 
     Route::get('/client/dashboard', function () {
         return view('client.dashboard');

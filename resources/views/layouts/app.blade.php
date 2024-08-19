@@ -74,7 +74,7 @@
         @endauth
 
         @include('partials.footer')
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="{{ asset('js/vendor/jquery-2.2.4.min.js') }}"></script>'
         <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

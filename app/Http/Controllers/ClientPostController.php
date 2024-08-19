@@ -20,7 +20,10 @@ class ClientPostController extends Controller
             $job->barangay_name = DB::table('barangays')->where('id', $job->barangay)->value('name');
         }
 
-        return view('client.post.index', compact('jobs'));
+        $topCities = $this->topcities();
+        $topCategories = $this->getTopCategories();
+
+        return view('client.post.index', compact('jobs', 'topCities', 'topCategories'));
     }
 
     public function create()
@@ -73,6 +76,52 @@ class ClientPostController extends Controller
             // Redirect or return response with error
             return back()->with('error', 'An error occurred while posting the job.');
         }
+    }
+
+    public function getTopCities()
+    {
+        return DB::table('posted_jobs')
+            ->join('cities', 'cities.city_id', '=', 'posted_jobs.city')
+            ->select('cities.name as city', 'cities.city_id as id')
+            ->groupBy('city', 'id')
+            ->orderBy('id', 'desc')
+            ->take(7)
+            ->get()
+            ->pluck('id', 'city');
+    }
+
+    public function countJobsPerCity($cityId)
+    {
+        return DB::table('posted_jobs')
+            ->where('city', $cityId)
+            ->count();
+    }
+
+    public function topcities()
+    {
+        $topCities = $this->getTopCities();
+
+        $topCitiesWithCounts = [];
+        foreach ($topCities as $cityName => $cityId) {
+            $topCitiesWithCounts[$cityName] = [
+                'id' => $cityId,
+                'count' => $this->countJobsPerCity($cityId),
+            ];
+        }
+
+        return $topCitiesWithCounts;
+    }
+
+    public function getTopCategories()
+    {
+        return DB::table('posted_jobs')
+            ->join('categories', 'categories.category_id', '=', 'posted_jobs.category_id')
+            ->select('categories.category_description as category', DB::raw('count(*) as total'))
+            ->groupBy('category')
+            ->orderBy('total', 'desc')
+            ->take(7)
+            ->get()
+            ->pluck('total', 'category');
     }
 
 }

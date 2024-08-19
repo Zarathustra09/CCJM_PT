@@ -216,7 +216,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Birthdate</label>
-                                    <input type="text" id="editBirthdate" class="form-control single-input" value="${agent.birthdate}" required>
+                                    <input type="text" id="editBirthdate" class="form-control single-input" value="${moment(agent.birthdate).format('MMMM Do YYYY, h:mm:ss a')}" required>
                                 </div>
                             </div>
                         </div>
