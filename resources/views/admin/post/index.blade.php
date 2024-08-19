@@ -50,8 +50,8 @@
                         }
                     },
                     {
-                        data: 'agent_id',
-                        name: 'agent_id',
+                        data: 'agent.full_name',
+                        name: 'agent.full_name',
                         render: function(data) { return data || 'N/A'; }
                     },
                     {
@@ -128,14 +128,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>Assigned Agent</label>
-                                <input type="text" class="form-control single-input" value="${job.agent_id || 'N/A'}" readonly>
-                            </div>
+               <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Assigned Agent</label>
+                            <input type="text" class="form-control single-input" value="${job.agent.full_name || 'N/A'}" readonly>
                         </div>
                     </div>
+                </div>
                     <div class="row mt-2">
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
@@ -180,59 +180,51 @@
                         title: 'Edit Job',
                         icon: "info",
                         html: `
-                    <form id="editForm">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Job Title</label>
-                                    <input type="text" id="editTitle" class="form-control single-input" value="${job.job_title}" required>
-                                </div>
+                <form id="editForm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input type="text" id="editTitle" class="form-control single-input" value="${job.job_title}" required>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea id="editDescription" class="form-control single-input" required>${job.job_description}</textarea>
-                                </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea id="editDescription" class="form-control single-input" required>${job.job_description}</textarea>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="form-group">
-                                    <label>Salary</label>
-                                    <input type="text" id="editSalary" class="form-control single-input" value="${job.salary}" required>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="form-group">
-                                    <label>Location</label>
-                                    <input type="text" id="editLocation" class="form-control single-input" value="${job.location}" required>
-                                </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label>Salary</label>
+                                <input type="text" id="editSalary" class="form-control single-input" value="${job.salary}" required>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select id="editStatus" class="form-control single-input" required>
-                                        <option value="0" ${job.status == 0 ? 'selected' : ''}>Unapproved</option>
-                                        <option value="1" ${job.status == 1 ? 'selected' : ''}>Approved</option>
-                                    </select>
-                                </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="editStatus" class="form-control single-input" required>
+                                    <option value="0" ${job.status == 0 ? 'selected' : ''}>Unapproved</option>
+                                    <option value="1" ${job.status == 1 ? 'selected' : ''}>Approved</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Agent</label>
-                                    <select id="editAgent" class="form-control single-input" required>
-                                        ${agentOptions}
-                                    </select>
-                                </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Agent</label>
+                                <select id="editAgent" class="form-control single-input" required>
+                                    ${agentOptions}
+                                </select>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </form>
                 `,
                         showCancelButton: true,
                         confirmButtonText: 'Save changes',
@@ -242,9 +234,14 @@
                                 const job_title = Swal.getPopup().querySelector('#editTitle').value;
                                 const job_description = Swal.getPopup().querySelector('#editDescription').value;
                                 const salary = Swal.getPopup().querySelector('#editSalary').value;
-                                const location = Swal.getPopup().querySelector('#editLocation').value;
                                 const status = Swal.getPopup().querySelector('#editStatus').value;
                                 const agent_id = Swal.getPopup().querySelector('#editAgent').value;
+
+                                console.log('job_title:', job_title);
+                                console.log('job_description:', job_description);
+                                console.log('salary:', salary);
+                                console.log('status:', status);
+                                console.log('agent_id:', agent_id);
 
                                 if (!job_title || !job_description) {
                                     Swal.showValidationMessage('Please enter both job title and description');
@@ -261,7 +258,6 @@
                                         job_title,
                                         job_description,
                                         salary,
-                                        location,
                                         status,
                                         agent_id
                                     },
@@ -269,7 +265,8 @@
                                         Swal.fire('Updated!', 'Job has been updated.', 'success');
                                         $('#dataTable').DataTable().ajax.reload();
                                     },
-                                    error: function() {
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.log('Error details:', jqXHR, textStatus, errorThrown);
                                         Swal.fire('Error!', 'There was a problem updating the job.', 'error');
                                     }
                                 });
@@ -279,6 +276,8 @@
                 }
             });
         }
+
+
 
 
         function deleteJob(jobId) {

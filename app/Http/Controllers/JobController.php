@@ -76,14 +76,27 @@ class JobController extends Controller
     {
         try {
             $jobs = PostedJobs::find($id);
-            $jobs->update($request->all());
+
+            // Only update the specified fields
+            $jobs->update([
+                'job_title' => $request->input('job_title'),
+                'job_description' => $request->input('job_description'),
+                'salary' => $request->input('salary'),
+                'status' => $request->input('status'),
+                'agent_id' => $request->input('agent_id'),
+            ]);
 
             // Return a JSON response with a success status code (200)
             return response()->json(['message' => 'Job has been updated.'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred while updating the job.'], 500);
+            // Log the error message
+            error_log($e->getMessage());
+
+            // Return the actual error message in the JSON response
+            return response()->json(['message' => 'An error occurred while updating the job.', 'error' => $e->getMessage()], 500);
         }
     }
+
 
     public function destroy(string $id)
     {
