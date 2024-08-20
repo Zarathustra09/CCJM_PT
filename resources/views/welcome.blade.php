@@ -232,7 +232,7 @@
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
                             <a href="category.html">
-                                <img src="img/o1.png" alt="">
+                                <img src="img/Accounting_1.png" alt="">
                             </a>
                             <p>Accounting</p>
                         </div>
@@ -240,15 +240,15 @@
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
                             <a href="category.html">
-                                <img src="img/o2.png" alt="">
+                                <img src="img/Crane.png" alt="">
                             </a>
-                            <p>Development</p>
+                            <p>Construction</p>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
                             <a href="category.html">
-                                <img src="img/o3.png" alt="">
+                                <img src="img/Technology.png" alt="">
                             </a>
                             <p>Technology</p>
                         </div>
@@ -256,25 +256,25 @@
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
                             <a href="category.html">
-                                <img src="img/o4.png" alt="">
+                                <img src="img/Education.png" alt="">
                             </a>
-                            <p>Media & News</p>
+                            <p>Education</p>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
                             <a href="category.html">
-                                <img src="img/o5.png" alt="">
+                                <img src="img/Sales.png" alt="">
                             </a>
-                            <p>Medical</p>
+                            <p>Sales</p>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
                             <a href="category.html">
-                                <img src="img/o6.png" alt="">
+                                <img src="img/Business_1.png" alt="">
                             </a>
-                            <p>Goverment</p>
+                            <p>Freelance</p>
                         </div>
                     </div>
                 </div>

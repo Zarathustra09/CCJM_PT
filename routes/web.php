@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Auth\RegisterAgentInformation;
+use App\Http\Controllers\CategoryPageController;
 use App\Http\Controllers\ClientPostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobController;
@@ -30,9 +31,7 @@ Route::get('/logout', function () {
 })->name('logout');
 
 
-Route::get('/categories', function () {
-    return view('categories');
-});
+Route::get('/categories', [CategoryPageController::class, 'index']);
 
 Route::get('/choose', function () {
     return view('agentclient');
